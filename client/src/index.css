@@ -1,0 +1,16 @@
+* {
+  overscroll-behavior: none;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  background-color: #FFF;
+}
+
+img {
+  width: 100%;
+}

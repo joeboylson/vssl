@@ -1,0 +1,30 @@
+{
+  "name": "flask-react-boilerplate",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup-server": "cd server && poetry install",
+    "setup-client": "npm run --prefix client setup",
+    "setup": "npm install && npm run setup-server && npm run setup-client",
+    "dev-server": "cd server && poetry run python index.py",
+    "dev-client": "npm run --prefix client dev",
+    "dev": "env-cmd concurrently 'npm run dev-server' 'npm run dev-client'",
+    "build-client": "npm run --prefix client build",
+    "build": "npm run build-client",
+    "start": "cd server && poetry run python index.py",
+    "local-start": "env-cmd npm run start",
+    "clean": "rm -rf server/dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "env-cmd": "^10.1.0"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.17.5"
+  }
+}
