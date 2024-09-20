@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, redirect
 from utils.limiter import app_limiter
 from utils.environment import is_production
 from routes.authentication import authentication_blueprint
@@ -13,6 +13,10 @@ PORT = os.environ.get("SERVER_PORT")
 def start_app():
 
     app = Flask(__name__, static_url_path="", static_folder=STATIC_FOLDER_NAME)
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return redirect("/")
 
     app_limiter.init_app(app)
     app.register_blueprint(authentication_blueprint)
