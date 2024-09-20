@@ -8,6 +8,7 @@ import { isEqual } from "lodash";
 import { NumberInput } from "./NumberInput";
 import { MAX_BED_SIZE } from "../../constants";
 import { ArrowCircleRight, DownloadSimple } from "@phosphor-icons/react";
+import { SwitchInput } from "./SwitchInput";
 
 const StyledSTLInputs = styled.div`
   position: relative;
@@ -83,6 +84,12 @@ export default function STLInputs() {
     defaultValues.wallThickness
   );
   const [wallInset, setWallInset] = useState<number>(defaultValues.wallInset);
+  const [withLidInset, setWithLidInset] = useState<boolean>(
+    defaultValues.withLidInset
+  );
+  const [withPullTab, setWithPullTab] = useState<boolean>(
+    defaultValues.withPullTab
+  );
 
   const handleGenerate = () => {
     setValues({
@@ -93,6 +100,8 @@ export default function STLInputs() {
       numberOfSlotsY,
       wallThickness,
       wallInset,
+      withLidInset,
+      withPullTab,
     });
   };
 
@@ -110,6 +119,8 @@ export default function STLInputs() {
       numberOfSlotsY,
       wallThickness,
       wallInset,
+      withLidInset,
+      withPullTab,
     };
   }, [
     slotSizeX,
@@ -119,6 +130,8 @@ export default function STLInputs() {
     numberOfSlotsY,
     wallThickness,
     wallInset,
+    withLidInset,
+    withPullTab,
   ]);
 
   const generateButtonIsActive = useMemo(() => {
@@ -130,6 +143,8 @@ export default function STLInputs() {
       numberOfSlotsY: defaultValues.numberOfSlotsY,
       wallThickness: defaultValues.wallThickness,
       wallInset: defaultValues.wallInset,
+      withLidInset: defaultValues.withLidInset,
+      withPullTab: defaultValues.withPullTab,
     };
 
     return !isEqual(inputsValues, currentContextValues);
@@ -137,10 +152,6 @@ export default function STLInputs() {
 
   return (
     <StyledSTLInputs>
-      {/**
-       * SLOT SIZE
-       */}
-
       <InputCategory>
         <h2>Slot Size:</h2>
         <NumberInput
@@ -160,9 +171,6 @@ export default function STLInputs() {
         />
       </InputCategory>
 
-      {/**
-       * NUMBER OF SLOTS
-       */}
       <InputCategory>
         <h2>Number of Slots:</h2>
         <NumberInput
@@ -179,10 +187,6 @@ export default function STLInputs() {
         />
       </InputCategory>
 
-      {/**
-       * WALL THICKNESS
-       */}
-
       <InputCategory>
         <h2>Walls:</h2>
 
@@ -198,6 +202,22 @@ export default function STLInputs() {
           onChange={setWallInset}
           defaultValue={wallInset}
           max={slotSizeZ - 1}
+        />
+      </InputCategory>
+
+      <InputCategory>
+        <h2>Lid Options:</h2>
+
+        <SwitchInput
+          label="With lid inset"
+          defaultValue={withLidInset}
+          onChange={setWithLidInset}
+        />
+
+        <SwitchInput
+          label="With pull tab"
+          defaultValue={withPullTab}
+          onChange={setWithPullTab}
         />
       </InputCategory>
 
@@ -223,13 +243,6 @@ export default function STLInputs() {
             color="#0000ff"
           />
         </DownloadLink>
-        {/* <p>slotSizeX: {slotSizeX}</p>
-        <p>slotSizeY: {slotSizeY}</p>
-        <p>slotSizeZ: {slotSizeZ}</p>
-        <p>numberOfSlotsX: {numberOfSlotsX}</p>
-        <p>numberOfSlotsY: {numberOfSlotsY}</p>
-        <p>wallThickness: {wallThickness}</p>
-        <p>wallInset: {wallInset}</p> */}
       </div>
     </StyledSTLInputs>
   );

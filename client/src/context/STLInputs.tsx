@@ -16,6 +16,8 @@ export type STLInputObjectValues = {
   numberOfSlotsY: number;
   wallThickness: number;
   wallInset: number;
+  withLidInset: boolean;
+  withPullTab: boolean;
 };
 
 export type STLInputObject = STLInputObjectValues & {
@@ -27,6 +29,9 @@ export type STLInputObject = STLInputObjectValues & {
   setNumberOfSlotsY: Dispatch<SetStateAction<number>>;
   setWallThickness: Dispatch<SetStateAction<number>>;
   setWallInset: Dispatch<SetStateAction<number>>;
+  setWithLidInset: Dispatch<SetStateAction<boolean>>;
+  setWithPullTab: Dispatch<SetStateAction<boolean>>;
+  //
   setValues: (values: STLInputObjectValues) => void;
 };
 
@@ -39,6 +44,9 @@ const defaultSTLInputContextValue: STLInputObject = {
   numberOfSlotsY: 3,
   wallThickness: 1,
   wallInset: 0,
+  withLidInset: true,
+  withPullTab: true,
+  //
   url: "",
   // functions
   setSlotSizeX: () => {},
@@ -48,7 +56,10 @@ const defaultSTLInputContextValue: STLInputObject = {
   setNumberOfSlotsY: () => {},
   setWallThickness: () => {},
   setWallInset: () => {},
-  setValues: (values: STLInputObjectValues) => {},
+  setWithLidInset: () => {},
+  setWithPullTab: () => {},
+  //
+  setValues: (_: STLInputObjectValues) => {},
 };
 
 export const STLInputContext = createContext(defaultSTLInputContextValue);
@@ -62,6 +73,8 @@ export function WithSTLInputContext({ children }: WithChildren) {
   const [numberOfSlotsY, setNumberOfSlotsY] = useState<number>(3);
   const [wallThickness, setWallThickness] = useState<number>(1);
   const [wallInset, setWallInset] = useState<number>(1);
+  const [withLidInset, setWithLidInset] = useState<boolean>(true);
+  const [withPullTab, setWithPullTab] = useState<boolean>(true);
 
   const setValues = (values: STLInputObjectValues) => {
     setSlotSizeX(values.slotSizeX);
@@ -71,6 +84,8 @@ export function WithSTLInputContext({ children }: WithChildren) {
     setNumberOfSlotsY(values.numberOfSlotsY);
     setWallThickness(values.wallThickness);
     setWallInset(values.wallInset);
+    setWithLidInset(values.withLidInset);
+    setWithPullTab(values.withPullTab);
   };
 
   const queryString = serialize({
@@ -82,9 +97,11 @@ export function WithSTLInputContext({ children }: WithChildren) {
     wt: wallThickness,
     wi: wallInset,
     v: new Date().valueOf(),
+    wli: withLidInset,
+    wpt: withPullTab,
   });
 
-  const url = `/generate-cube-stl?${queryString}`;
+  const url = `/generate-stl?${queryString}`;
 
   const values = {
     slotSizeX,
@@ -94,8 +111,8 @@ export function WithSTLInputContext({ children }: WithChildren) {
     numberOfSlotsY,
     wallThickness,
     wallInset,
-    // TODO with lid cutout
-    // TODO with pull tab
+    withLidInset,
+    withPullTab,
     url,
   };
 
@@ -107,6 +124,8 @@ export function WithSTLInputContext({ children }: WithChildren) {
     setNumberOfSlotsY,
     setWallThickness,
     setWallInset,
+    setWithLidInset,
+    setWithPullTab,
     setValues,
   };
 
