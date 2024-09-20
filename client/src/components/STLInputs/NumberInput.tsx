@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useMemo } from "react";
 import { MAX_BED_SIZE } from "../../constants";
-import { TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import { inRange } from "lodash";
 import styled from "styled-components";
 
@@ -12,6 +12,12 @@ const StyledNumberInput = styled.div`
 
   .MuiFormControl-root {
     width: 100%;
+  }
+
+  .MuiInputAdornment-root {
+    * {
+      font-size: 12px;
+    }
   }
 
   * {
@@ -55,7 +61,13 @@ export function NumberInput({
         helperText={errorMessage}
         label={`${label}: [min: ${min}, max:${max}]`}
         type="number"
-        InputProps={{ inputProps: { min, max } }}
+        InputProps={{
+          inputProps: {
+            min,
+            max,
+          },
+          endAdornment: <InputAdornment position="end">mm</InputAdornment>,
+        }}
         onChange={_onChange}
         defaultValue={defaultValue}
         size="small"
