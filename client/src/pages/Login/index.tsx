@@ -1,7 +1,6 @@
+import styled from "styled-components";
 import { useCallback, useState } from "react";
 import { useAuthenticatedUser } from "../../hooks/useAuthenticatedUser";
-import styled from "styled-components";
-import Loading from "../../components/Loading";
 import { Button, TextField } from "@mui/material";
 
 const StyledLogin = styled.div`
@@ -36,6 +35,7 @@ export default function Login() {
   return (
     <StyledLogin>
       <StyledLoginInner>
+        <h2>Login to VSSL:</h2>
         <TextField
           size="small"
           type="text"

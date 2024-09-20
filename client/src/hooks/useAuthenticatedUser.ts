@@ -17,7 +17,6 @@ export function useAuthenticatedUser(options?: _options) {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [authenticationUrl, setAuthenticationUrl] = useState<string>();
   const [authenticatedUser, setAuthenticatedUser] = useState<IsAuthenticated>();
 
   const [otpTokenIsSent, setOTPTokenIsSent] = useState<boolean>(false);
@@ -43,22 +42,19 @@ export function useAuthenticatedUser(options?: _options) {
     }
   }, [navigate, authenticatedUser]);
 
-  const sendOTPToken = useCallback(
-    async (email?: string) => {
-      setLoading(true);
-      if (!email) return;
+  const sendOTPToken = useCallback(async (email?: string) => {
+    setLoading(true);
+    if (!email) return;
 
-      try {
-        const response = await axios.get(`/send-otp-token?email=${email}`);
-        setOTPTokenIsSent(response.data.success ?? false);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [authenticationUrl]
-  );
+    try {
+      const response = await axios.get(`/send-otp-token?email=${email}`);
+      setOTPTokenIsSent(response.data.success ?? false);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const verifyOTPToken = useCallback(
     async (email?: string, token?: string) => {
@@ -74,7 +70,7 @@ export function useAuthenticatedUser(options?: _options) {
         setLoading(false);
       }
     },
-    [authenticationUrl]
+    [navigate]
   );
 
   const logout = useCallback(async () => {
@@ -102,7 +98,6 @@ export function useAuthenticatedUser(options?: _options) {
     otpTokenIsSent,
     loading,
     authenticatedUser,
-    authenticationUrl,
   };
 
   return { ...exportFunctions, ...exportValues };

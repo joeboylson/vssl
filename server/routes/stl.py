@@ -31,8 +31,6 @@ def generate_stl():
                 request.args.get("wpt", default=True, type=is_true),
             ]
 
-            print(model_args)
-
             # generate STL
             return generate_stl_model(*model_args)
         except:

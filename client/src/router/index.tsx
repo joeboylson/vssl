@@ -1,8 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Routes } from "../enums/routes";
-import Home from "../pages/Home";
-import Header from "../components/Header";
 import { WithSTLInputContext } from "../context/STLInputs";
+import Home from "../pages/Home";
 import AuthenticatedWrapper from "../components/AuthenticatedWrapper";
 import Login from "../pages/Login";
 
