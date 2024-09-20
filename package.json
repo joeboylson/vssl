@@ -14,7 +14,9 @@
     "build": "npm run build-client",
     "start": "cd server && poetry run python index.py",
     "local-start": "env-cmd npm run start",
-    "clean": "rm -rf server/dist"
+    "clean": "rm -rf server/dist",
+    "test-model-generation": "cd server && poetry run python stl/_test.py",
+    "generate-supabase-types": "npx supabase gen types --lang=typescript --project-id eakawftqgjzucvapsgcv --schema public > client/src/types/supabase.types.ts"
   },
   "keywords": [],
   "author": "",

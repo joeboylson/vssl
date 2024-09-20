@@ -9,6 +9,8 @@ python = "^3.9"
 Flask = "^2.0.2"
 waitress = "^3.0.0"
 solidpython2 = "^2.1.0"
+supabase = "^2.7.4"
+flask-limiter = "^3.8.0"
 
 
 [build-system]
