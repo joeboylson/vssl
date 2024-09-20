@@ -4,9 +4,9 @@ from utils.limiter import app_limiter
 from utils.environment import is_production
 from routes.authentication import authentication_blueprint
 from routes.stl import stl_blueprint
+from routes.static import static_blueprint, STATIC_FOLDER_NAME
 
 
-STATIC_FOLDER_NAME = "dist"
 PORT = os.environ.get("SERVER_PORT")
 
 
@@ -17,6 +17,7 @@ def start_app():
     app_limiter.init_app(app)
     app.register_blueprint(authentication_blueprint)
     app.register_blueprint(stl_blueprint)
+    app.register_blueprint(static_blueprint)
 
     if is_production():
         from waitress import serve
