@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useAuthenticatedUser } from "../../hooks/useAuthenticatedUser";
 import styled from "styled-components";
+import Loading from "../../components/Loading";
+import { Button, TextField } from "@mui/material";
 
 const StyledLogin = styled.div`
   width: 100vw;
@@ -9,15 +11,12 @@ const StyledLogin = styled.div`
   place-items: center;
 `;
 
-const LoginLink = styled.button`
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  border: 1px solid black;
-  color: black;
-  padding: 12px 32px;
-  border-radius: 50px;
-  font-size: 16px;
+const StyledLoginInner = styled.div`
+  width: 100%;
+  max-width: 400px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
 `;
 
 export default function Login() {
@@ -29,30 +28,37 @@ export default function Login() {
   const [email, setEmail] = useState<string>();
   const [token, setToken] = useState<string>();
 
-  if (loading) return <p>loading...</p>;
+  const handleClick = useCallback(() => {
+    if (otpTokenIsSent) return verifyOTPToken(email, token);
+    return sendOTPToken(email);
+  }, [email, otpTokenIsSent, sendOTPToken, token, verifyOTPToken]);
 
   return (
     <StyledLogin>
-      {otpTokenIsSent ? (
-        <div>
-          <input
+      <StyledLoginInner>
+        <TextField
+          size="small"
+          type="text"
+          name="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={loading || otpTokenIsSent}
+          defaultValue={email}
+        />
+
+        {otpTokenIsSent && (
+          <TextField
+            size="small"
             type="text"
             placeholder="OTP"
             onChange={(e) => setToken(e.target.value)}
           />
-          <button onClick={() => verifyOTPToken(email, token)}>Submit</button>
-        </div>
-      ) : (
-        <div>
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button onClick={() => sendOTPToken(email)}>Submit</button>
-        </div>
-      )}
+        )}
+
+        <Button onClick={handleClick} variant="contained" disabled={loading}>
+          {loading ? "Loading..." : "Submit"}
+        </Button>
+      </StyledLoginInner>
     </StyledLogin>
   );
 }

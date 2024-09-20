@@ -6,6 +6,7 @@ import {
   IsAuthenticated,
   useAuthenticatedUser,
 } from "../../hooks/useAuthenticatedUser";
+import Loading from "../Loading";
 
 const StyledAuthenticatedWrapper = styled("div")`
   display: grid;
@@ -27,7 +28,7 @@ export const UserContext = createContext<UserContextType>({
 export default function AuthenticatedWrapper({ children }: WithChildren) {
   const { authenticatedUser, loading } = useAuthenticatedUser();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
 
   return (
     <StyledAuthenticatedWrapper id="auth-wrapper">

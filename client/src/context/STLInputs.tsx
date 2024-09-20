@@ -96,9 +96,9 @@ export function WithSTLInputContext({ children }: WithChildren) {
     ny: numberOfSlotsY,
     wt: wallThickness,
     wi: wallInset,
-    v: new Date().valueOf(),
     wli: withLidInset,
     wpt: withPullTab,
+    v: new Date().valueOf(),
   });
 
   const url = `/generate-stl?${queryString}`;

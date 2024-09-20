@@ -9,7 +9,7 @@ stl_blueprint = Blueprint("stl_blueprint", __name__)
 
 
 @stl_blueprint.route("/generate-stl")
-@app_limiter.limit("1000 per day")
+@app_limiter.limit("50 per hour")
 def generate_stl():
 
     def generate_stl():

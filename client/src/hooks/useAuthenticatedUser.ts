@@ -66,10 +66,8 @@ export function useAuthenticatedUser(options?: _options) {
       if (!token || !email) return;
 
       try {
-        const response = await axios.get(
-          `/verify-otp-token?email=${email}&token=${token}`
-        );
-        console.log({ response });
+        await axios.get(`/verify-otp-token?email=${email}&token=${token}`);
+        navigate("/");
       } catch (error) {
         console.error(error);
       } finally {

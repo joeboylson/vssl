@@ -16,7 +16,7 @@ const StyledSTLInputs = styled.div`
   grid-template-columns: 1fr;
   gap: 24px;
   align-content: start;
-  padding: 12px;
+  padding: 24px 12px;
 `;
 
 const InputCategory = styled.div`
@@ -30,7 +30,7 @@ const GenerateButton = styled.button`
   position: absolute;
   display: grid;
   place-items: center;
-  top: 24px;
+  top: 36px;
   right: -60px;
   z-index: +1;
   border: 0;
@@ -56,7 +56,7 @@ const DownloadLink = styled.a`
   height: ${GENERATE_BUTTON_SIZE - 2}px;
   background-color: #eee;
   position: fixed;
-  top: calc(36px + 24px);
+  top: calc(36px + 36px);
   right: 24px;
   z-index: +1;
   border-radius: ${GENERATE_BUTTON_SIZE}px;

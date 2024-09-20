@@ -1,49 +1,21 @@
-import { Canvas, useLoader } from "@react-three/fiber";
-import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
-import { Center, Environment, OrbitControls, Text } from "@react-three/drei";
 import styled from "styled-components";
-import { Suspense } from "react";
-import { useSTLInputContext } from "../../context/STLInputs";
-import { ErrorBoundary } from "react-error-boundary";
 import FallbackRender from "../FallbackRender";
+import LoadingTextModel from "./LoadingTextModel";
+import { Canvas } from "@react-three/fiber";
+import { Center, Environment, OrbitControls } from "@react-three/drei";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import STLModel from "./STLModel";
 
 const StyledSTLViewer = styled.div`
-  margin: 12px;
+  margin: 24px 12px 0 12px;
   width: calc(100% - 24px);
   border-radius: 8px;
   overflow: hidden;
+
+  display: grid;
+  place-items: center;
 `;
-
-function Cube() {
-  return (
-    <Text
-      scale={[1, 1, 1]}
-      color="black" // default
-      anchorX="center" // default
-      anchorY="middle" // default
-      rotation={[-Math.PI / 2, 0, 0]}
-    >
-      Loading...
-    </Text>
-  );
-}
-
-function Model() {
-  const { url } = useSTLInputContext();
-  const stl = useLoader(STLLoader, url);
-
-  return (
-    <mesh
-      geometry={stl}
-      castShadow
-      receiveShadow
-      scale={[0.1, 0.1, 0.1]}
-      rotation={[-Math.PI / 2, 0, 0]}
-    >
-      <meshStandardMaterial />
-    </mesh>
-  );
-}
 
 export default function STLViewer() {
   return (
@@ -57,8 +29,8 @@ export default function STLViewer() {
           <color attach="background" args={[0x888888]} />
 
           <Center top>
-            <Suspense fallback={<Cube />}>
-              <Model />
+            <Suspense fallback={<LoadingTextModel />}>
+              <STLModel />
             </Suspense>
           </Center>
 
