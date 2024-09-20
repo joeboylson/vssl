@@ -26,8 +26,9 @@ export default function FallbackRender({ error }: FallbackProps) {
           <p>
             If you have any issues, feature suggestions, or just want to share
             your thoughts, feel free to reach out to me at
-            [joeboylson@gmail.com]. I appreciate your understanding and feedback
-            as I continue to work on this app.
+            <a href="mailto:joeboylson@gmail.com">joeboylson@gmail.com</a>. I
+            appreciate your understanding and feedback as I continue to work on
+            this app.
           </p>
           <br />
           <p>Thanks again!</p>

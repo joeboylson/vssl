@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { HEADER_HEIGHT } from "../../constants";
 import { useAuthenticatedUser } from "../../hooks/useAuthenticatedUser";
+import { Info } from "@phosphor-icons/react";
+import { useToggle } from "../../hooks/useToggle";
+import AppInformationModal from "../AppInformationModal";
 
 const StyledHeader = styled.div`
   height: ${HEADER_HEIGHT}px;
   background-color: black;
   color: white;
-
   display: flex;
   align-items: center;
 `;
@@ -30,7 +32,27 @@ const ProfileName = styled.p`
   font-size: 12px;
 `;
 
+const InfoButton = styled.button`
+  width: 24px;
+  height: 24px;
+  margin: 12px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  margin-left: auto;
+  background-color: transparent;
+  outline: none;
+  border: 0;
+`;
+
 export default function Header() {
+  const {
+    value: modalIsOpen,
+    enable: openModal,
+    disable: closeModal,
+  } = useToggle();
+
   const { authenticatedUser } = useAuthenticatedUser();
   if (!authenticatedUser) return <StyledHeader />;
 
@@ -40,6 +62,12 @@ export default function Header() {
         <Logo src={"logo.png"} />
       </LogoWrapper>
       <ProfileName>Hey there, {authenticatedUser.user?.email}</ProfileName>
+
+      <InfoButton onClick={openModal}>
+        <Info size={20} color="#FFFFFF" weight="duotone" />
+      </InfoButton>
+
+      <AppInformationModal open={modalIsOpen} onClose={closeModal} />
     </StyledHeader>
   );
 }
