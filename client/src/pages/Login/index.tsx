@@ -50,7 +50,7 @@ export default function Login() {
           <TextField
             size="small"
             type="text"
-            placeholder="OTP"
+            placeholder="OTP (6-digit code sent to your email)"
             onChange={(e) => setToken(e.target.value)}
           />
         )}
