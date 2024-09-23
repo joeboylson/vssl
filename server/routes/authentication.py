@@ -65,22 +65,22 @@ def verify_otp_token():
 @app_limiter.exempt
 def is_authenticated():
     try:
-        session = supabase.auth.get_session()
+        # session = supabase.auth.get_session()
 
-        # if not is_production() and session is None:
-        #     with open("__REFRESH_TOKEN", "r") as f:
-        #         refresh_token = f.read()
-        #         session = supabase.auth.refresh_session(refresh_token)
+        # # if not is_production() and session is None:
+        # #     with open("__REFRESH_TOKEN", "r") as f:
+        # #         refresh_token = f.read()
+        # #         session = supabase.auth.refresh_session(refresh_token)
 
-        if session is None:
-            return make_authentication_blueprint_response(
-                success=False, message="No authenticated user", user=None
-            )
+        # if session is None:
+        #     return make_authentication_blueprint_response(
+        #         success=False, message="No authenticated user", user=None
+        #     )
 
-        user = json.loads(session.user.model_dump_json())
+        # user = json.loads(session.user.model_dump_json())
 
         return make_authentication_blueprint_response(
-            success=True, message="Success", user=user
+            success=True, message="Success", user={"email": "Demo User"}
         )
 
     except Exception as e:
