@@ -44,10 +44,10 @@ def verify_otp_token():
         if token is not None and email is not None:
             supabase.auth.verify_otp({"email": email, "token": token, "type": "email"})
 
-            if not is_production():
-                with open("__REFRESH_TOKEN", "a") as f:
-                    session = supabase.auth.get_session()
-                    f.write(session.refresh_token)
+            # if not is_production():
+            #     with open("__REFRESH_TOKEN", "a") as f:
+            #         session = supabase.auth.get_session()
+            #         f.write(session.refresh_token)
 
             return {"success": True}
 
@@ -67,10 +67,10 @@ def is_authenticated():
     try:
         session = supabase.auth.get_session()
 
-        if not is_production() and session is None:
-            with open("__REFRESH_TOKEN", "r") as f:
-                refresh_token = f.read()
-                session = supabase.auth.refresh_session(refresh_token)
+        # if not is_production() and session is None:
+        #     with open("__REFRESH_TOKEN", "r") as f:
+        #         refresh_token = f.read()
+        #         session = supabase.auth.refresh_session(refresh_token)
 
         if session is None:
             return make_authentication_blueprint_response(
