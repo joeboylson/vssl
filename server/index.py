@@ -34,3 +34,34 @@ def start_app():
 
 if __name__ == "__main__":
     start_app()
+
+    # from stl.generate_model import generate_stl_model
+    # from random import randrange
+
+    # model_args = [
+    #     randrange(10, 50),  # ---slot_size_x,
+    #     randrange(10, 50),  # ---slot_size_y,
+    #     randrange(10, 50),  # ---slot_size_z,
+    #     randrange(1, 10),  # ---number_of_slots_x,
+    #     randrange(1, 10),  # ---number_of_slots_y,
+    #     randrange(1, 5),  # ---wall_thickness,
+    #     randrange(1, 10),  # ---wall_inset,
+    #     False,  # ---with_lid_inset,
+    #     False,  # ---with_pull_tab,
+    # ]
+
+    # model_args = [
+    #     28,  # ---slot_size_x,
+    #     28,  # ---slot_size_y,
+    #     48,  # ---slot_size_z,
+    #     2,  # ---number_of_slots_x,
+    #     4,  # ---number_of_slots_y,
+    #     1,  # ---wall_thickness,
+    #     5,  # ---wall_inset,
+    #     False,  # ---with_lid_inset,
+    #     False,  # ---with_pull_tab,
+    # ]
+
+    # # generate STL
+    # model = generate_stl_model(*model_args)
+    # model.render().save_as_scad()

@@ -234,8 +234,8 @@ export default function STLInputs() {
         </GenerateButton>
         <DownloadLink
           href={downloadUrl}
-          download="vssl-output.stl"
           className={generateButtonIsActive ? "disabled" : ""}
+          target="_blank"
         >
           <DownloadSimple
             size={GENERATE_BUTTON_SIZE - 10}

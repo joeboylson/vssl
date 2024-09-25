@@ -51,4 +51,4 @@ def generate_stl():
     model.save_as_scad()
 
     # return temporary file
-    return send_file(tmp, mimetype="model/stl")
+    return send_file(tmp, mimetype="model/stl", download_name="vssl-model.stl")

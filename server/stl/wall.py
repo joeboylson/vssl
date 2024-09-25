@@ -1,27 +1,24 @@
 from solid2 import cube
 
 
-def generate_walls(
-    length_x, length_y, length_z, wall_thickness, outer_wall_thickness, base_height
-):
+def generate_walls(length_x, length_y, length_z, outer_wall_thickness):
 
-    # generate a cube which is the size of the entire box
-    ox = length_x + wall_thickness + outer_wall_thickness * 2
-    oy = length_y + wall_thickness + outer_wall_thickness * 2
-    oz = base_height + length_z
-    otx = outer_wall_thickness * -1
-    oty = outer_wall_thickness * -1
-    wall_outer_bounds = cube(ox, oy, oz).translate(otx, oty, 0)
+    owt = outer_wall_thickness
+    lid_height = 2
+    inner_bounds_height = length_z + 50
 
-    # generate a cube which is the size of the box minus the intended wall thickness
-    ix = ox - 4
-    iy = oy - 4
-    iz = oz + 10
-    itx = (outer_wall_thickness * -1) + 2
-    ity = (outer_wall_thickness * -1) + 2
-    itz = -5
-    wall_inner_bounds = cube(ix, iy, iz).translate(itx, ity, itz)
+    wall_inner_bounds = cube(length_x, length_y, inner_bounds_height)
+    wall_inner_bounds = wall_inner_bounds.translateZ(-10)
 
-    # cut out the inner cube from the outer cube which will result in a box with
-    # no bottom or top (bottom and top will be created later)
-    return wall_outer_bounds - wall_inner_bounds
+    wall_outer_bounds = cube(
+        length_x + (owt * 2), length_y + (owt * 2), length_z + lid_height
+    )
+
+    wall_outer_bounds = wall_outer_bounds.translate((owt * -1), (owt * -1), 0)
+
+    wall_lid_notch = cube(length_x, owt, lid_height)
+    wall_lid_notch = wall_lid_notch.translate(0, (owt * -1), length_z)
+
+    model = wall_outer_bounds - ~wall_inner_bounds - wall_lid_notch
+
+    return model
