@@ -51,13 +51,13 @@ if __name__ == "__main__":
     # ]
 
     # model_args = [
-    #     28,  # ---slot_size_x,
-    #     28,  # ---slot_size_y,
-    #     48,  # ---slot_size_z,
-    #     2,  # ---number_of_slots_x,
-    #     4,  # ---number_of_slots_y,
+    #     10,  # ---slot_size_x,
+    #     10,  # ---slot_size_y,
+    #     2,  # ---slot_size_z,
+    #     3,  # ---number_of_slots_x,
+    #     3,  # ---number_of_slots_y,
     #     1,  # ---wall_thickness,
-    #     5,  # ---wall_inset,
+    #     0,  # ---wall_inset,
     #     False,  # ---with_lid_inset,
     #     False,  # ---with_pull_tab,
     # ]

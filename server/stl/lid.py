@@ -1,8 +1,8 @@
-from solid2 import cube, polygon, cylinder
+from solid2 import cube, polygon, cylinder, sphere
 
 
-clearance = 0.15
-n_clearance = 0.15 * -1
+clearance = 0.12
+n_clearance = clearance * -1
 
 
 def generate_lip_polygon(length=0, with_clearance=False):
@@ -30,6 +30,7 @@ def generate_lip(
     length_z,
     wall_thickness,
     with_clearance=False,
+    with_snaps=True,
 ):
 
     model = cube(0)
@@ -62,7 +63,23 @@ def generate_lip(
     model = left + right + top - bottom
     model = model.translateZ(length_z - 1)
 
-    return model.render()
+    if with_snaps:
+
+        cylinder_size = 0.5 if with_clearance else 0.5 + clearance
+        _snap_cube = cylinder(r=cylinder_size, h=2).scaleY(3)
+
+        ty = 5
+        tz = length_z + 1
+
+        snap_left = _snap_cube
+        snap_left = snap_left.translate(1, ty, tz)
+
+        snap_right = _snap_cube
+        snap_right = snap_right.translate(top_bottom_length - 3, ty, tz)
+
+        model = model - snap_left - snap_right
+
+    return model
 
 
 def generate_lid(
@@ -117,6 +134,7 @@ def generate_lid(
 
     lid_position_x = (lid_length_x * -1) - 2 - outer_wall_thickness
     model = model.translateX(lid_position_x)
-    # model = model.translate(0, 0, 11 + clearance)
+
+    # model = model.translate(0, 0, 2 + clearance)
 
     return model

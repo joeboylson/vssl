@@ -72,6 +72,9 @@ def generate_stl_model(
 
     model = slots + lip + lid + walls + base
 
+    model = model.translateY((length_y / -2) - 1)
+    model = model.translateX(2)
+
     return model
 
 

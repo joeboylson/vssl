@@ -19,6 +19,6 @@ def generate_walls(length_x, length_y, length_z, outer_wall_thickness):
     wall_lid_notch = cube(length_x, owt, lid_height)
     wall_lid_notch = wall_lid_notch.translate(0, (owt * -1), length_z)
 
-    model = wall_outer_bounds - ~wall_inner_bounds - wall_lid_notch
+    model = wall_outer_bounds - wall_inner_bounds - wall_lid_notch
 
     return model
